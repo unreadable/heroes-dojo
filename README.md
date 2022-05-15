@@ -14,8 +14,8 @@ To run the app, make sure that the following tools are installed:
 
 To run the app, execute the following commands:
 
-    $ git clone $repo
-    $ cd $repo
+    $ git clone https://github.com/unreadable/heroes-dojo.git
+    $ cd heroes-dojo
     $ yarn install
     $ yarn start
 
