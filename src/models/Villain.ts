@@ -19,7 +19,7 @@ export default class Villain extends Entity {
         const damage = attackerStrength - this.defence;
         this.health = Math.max(0, this.health - damage);
 
-        this.logger.info('Villain took damage worth : ' + damage);
+        this.logger.info('Villain took damage worth: ' + damage);
         this.logger.warning('Villain ph is now: ' + this.health);
     }
 

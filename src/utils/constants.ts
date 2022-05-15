@@ -53,10 +53,3 @@ export const VillainChances = {
 };
 
 export const MaxEventsCount = 20;
-
-export enum LogType {
-    Info,
-    Warning,
-    Success,
-    Wow
-};

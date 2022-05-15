@@ -1,6 +1,5 @@
 import * as chance from 'chance';
 import { IRange } from './index';
-import { LogType } from '../utils/constants';
 
 export default abstract class Entity {
     protected health: number;
