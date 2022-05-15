@@ -1,7 +1,10 @@
 import { Entity, IRange } from './index';
-import { HeroSpecialChances, HeroCooldownTurns, LogType } from '../utils/constants';
+import { Logger } from '../services';
+import { HeroSpecialChances, HeroCooldownTurns } from '../utils/constants';
 
 export default class Hero extends Entity {
+    private logger: Logger;
+
     private currentTurn = 0;
     private resilience = {
         lastTurnUsed: -Infinity,
@@ -10,12 +13,14 @@ export default class Hero extends Entity {
 
     constructor(chances: Record<string, IRange>) {
         super(chances);
+
+        this.logger = new Logger();
     }
 
     public takeDamage(attackerStrength: number) {
         const isLuckyToDogeStrike = this.isLucky(this.luck);
         if (isLuckyToDogeStrike) {
-            return this.logEvent('Hero managed to doge attack!', LogType.Wow);
+            return this.logger.wow('Hero managed to doge attack!');
         };
 
         if (!this.resilience.ableToUse && this.currentTurn - this.resilience.lastTurnUsed >= HeroCooldownTurns) {
@@ -27,7 +32,7 @@ export default class Hero extends Entity {
             const damage = (attackerStrength - this.defence) / 2;
 
             this.health = Math.max(0, this.health - damage);
-            this.logEvent('Hero took half of the damage worh: ' + damage, LogType.Info);
+            this.logger.info('Hero took half of the damage worh: ' + damage);
 
             this.resilience = {
                 lastTurnUsed: this.currentTurn,
@@ -37,12 +42,12 @@ export default class Hero extends Entity {
             const damage = (attackerStrength - this.defence);
 
             this.health = Math.max(0, this.health - damage);
-            this.logEvent('Hero took full damage worth: ' + damage, LogType.Info);
+            this.logger.info('Hero took full damage worth: ' + damage);
         }
 
         this.currentTurn += 1;
 
-        this.logEvent('Hero ph is now: ' + this.health, LogType.Warning);
+        this.logger.warning('Hero ph is now: ' + this.health);
     }
 
     public criticalStrike(enemy: Entity) {
@@ -52,7 +57,7 @@ export default class Hero extends Entity {
         enemy.takeDamage(this.strength);
 
         if (isLuckyTripleCombo) {
-            this.logEvent('Hero managed to hit three times!', LogType.Wow);
+            this.logger.wow('Hero managed to hit three times!');
             enemy.takeDamage(this.strength);
         }
     }
@@ -61,10 +66,10 @@ export default class Hero extends Entity {
         const isLuckyToCriticalHit = this.isLucky(HeroSpecialChances.Critical);
 
         if (isLuckyToCriticalHit) {
-            this.logEvent('Hero attacks villain with critical strike!', LogType.Success);
+            this.logger.success('Hero attacks villain with critical strike!');
             this.criticalStrike(enemy);
         } else {
-            this.logEvent('Hero attacks villain with no special skill', LogType.Info);
+            this.logger.info('Hero attacks villain with no special skill');
             enemy.takeDamage(this.strength);
         }
     }

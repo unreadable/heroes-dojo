@@ -41,23 +41,6 @@ export default abstract class Entity {
         return chance().bool({ likelihood });
     }
 
-    protected logEvent(event: string, type: LogType) {
-        switch (type) {
-            case LogType.Success:
-                console.log('-> \x1b[32m%s\x1b[0m', event);
-                break;
-            case LogType.Warning:
-                console.log('-> \x1b[33m%s\x1b[0m', event);
-                break;
-            case LogType.Wow:
-                console.log('-> ✨✨✨ \x1b[32m%s\x1b[0m ✨✨✨', event);
-                break;
-            default:
-                console.log('-> \x1b[36m%s\x1b[0m', event);
-                break;
-        }
-    };
-
     abstract takeDamage(attackerStrength: number): void;
     abstract attack(enemy: Entity): void;
 };

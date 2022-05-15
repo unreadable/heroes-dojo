@@ -21,6 +21,8 @@
   },
   "jest": {
     "preset": "ts-jest",
-    "testPathIgnorePatterns": ["mocks"]
+    "testPathIgnorePatterns": [
+      "mocks"
+    ]
   }
 }
