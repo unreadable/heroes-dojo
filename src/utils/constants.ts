@@ -27,8 +27,6 @@ export const HeroSpecialChances = {
     TripleCombo: 1,
 };
 
-export const HeroCooldownTurns = 2;
-
 export const VillainChances = {
     Health: {
         min: 60,
@@ -52,4 +50,5 @@ export const VillainChances = {
     }
 };
 
+export const HeroCooldownTurns = 2;
 export const MaxEventsCount = 20;
